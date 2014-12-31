@@ -22,3 +22,7 @@ var selectSquare = function(row, col) {
     $(document).trigger('invalidMove', "You selected an empty spot.");
   }
 };
+
+$(document).on("invalidMove", function(e, error){
+  alert(error);
+});
