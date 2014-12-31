@@ -1,4 +1,4 @@
-var board, currentPlayer;
+var board, currentPlayer, firstMove;
 
 var resetBoard = function () {
   board = [
@@ -20,6 +20,12 @@ var resetBoard = function () {
 var selectSquare = function(row, col) {
   if (board[row][col] === ' X ') {
     $(document).trigger('invalidMove', "You selected an empty spot.");
+  }
+  else if (board[row][col] != currentPlayer) {
+    $(document).trigger("invalidMove", "You selected an opponent's piece.");
+  }
+  else {
+    firstMove = [row, col];
   }
 };
 
