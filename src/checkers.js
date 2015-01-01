@@ -22,7 +22,7 @@ var selectSquare = function(row, col) {
   // select piece to move, this is the first move
   if (firstMove.length === 0) {
     if (board[row][col] === ' X ') {
-      $(document).trigger('invalidMove', "You selected an empty spot.");
+      $(document).trigger('invalidMove', "You selected an empty square.");
     }
     else if (board[row][col] != currentPlayer) {
       $(document).trigger("invalidMove", "You selected an opponent's piece.");
@@ -33,16 +33,16 @@ var selectSquare = function(row, col) {
   }
   else {
     // select where to move the piece, this is the second move
-    if (board[row][col] != " X ") {
+    if (board[row][col] != " X " || col === firstMove[1]) {
       // invalid move, not an empty square
       firstMove = [];
       $(document).trigger("invalidMove", "You cannot place your piece there.\nSelect a piece and try again.");
     }
-    else if (col === firstMove[1]) {
-      // invalide move, not diagonal
-      firstMove = [];
-      $(document).trigger("invalidMove", "You cannot place your piece there.\nSelect a piece and try again.");
-    }
+    // else if (col === firstMove[1]) {
+    //   // invalide move, not diagonal
+    //   firstMove = [];
+    //   $(document).trigger("invalidMove", "You cannot place your piece there.\nSelect a piece and try again.");
+    // }
     else {
       // valid move
       board[row][col] = currentPlayer;
