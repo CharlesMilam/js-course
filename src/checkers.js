@@ -61,3 +61,7 @@ var makeMove = function(row, col) {
 $(document).on("invalidMove", function(e, error){
   alert(error);
 });
+
+$(document).on("boardChange", function(){
+  displayBoard();
+});
