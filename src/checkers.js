@@ -38,11 +38,6 @@ var selectSquare = function(row, col) {
       firstMove = [];
       $(document).trigger("invalidMove", "You cannot place your piece there.\nSelect a piece and try again.");
     }
-    // else if (col === firstMove[1]) {
-    //   // invalide move, not diagonal
-    //   firstMove = [];
-    //   $(document).trigger("invalidMove", "You cannot place your piece there.\nSelect a piece and try again.");
-    // }
     else {
       // valid move
       board[row][col] = currentPlayer;
