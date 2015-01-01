@@ -45,8 +45,17 @@ var selectSquare = function(row, col) {
     }
     else {
       // valid move
+      board[row][col] = currentPlayer;
+      board[firstMove[0]][firstMove[1]] = " X ";
+      firstMove = [];
+      $(document).trigger("boardChange");
     }
   }
+};
+
+var makeMove = function(row, col) {
+  var numRow = charToNum[row];
+  selectSquare(numRow, col);
 };
 
 $(document).on("invalidMove", function(e, error){
