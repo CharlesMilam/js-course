@@ -22,10 +22,10 @@ var selectSquare = function(row, col) {
   // select piece to move, this is the first move
   if (firstMove.length === 0) {
     if (board[row][col] === ' X ') {
-      $(document).trigger('invalidMove', "You selected an empty square.");
+      $(document).trigger('invalidMove', "You selected an empty square.\nSelect one of your pieces.");
     }
     else if (board[row][col] != currentPlayer) {
-      $(document).trigger("invalidMove", "You selected an opponent's piece.");
+      $(document).trigger("invalidMove", "You selected an opponent's piece.\nSelect one of your pieces.");
     }
     else {
       firstMove = [row, col];
