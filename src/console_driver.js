@@ -17,4 +17,5 @@ var displayBoard = function () {
   for (var i = 0; i < board.length; i++) {
     console.log(numToChar[i] + " |" + board[i].join(" "));
   }
+  console.log("\nCurrent Player: " + currentPlayer)
 };
