@@ -48,6 +48,14 @@ var selectSquare = function(row, col) {
       board[row][col] = currentPlayer;
       board[firstMove[0]][firstMove[1]] = " X ";
       firstMove = [];
+      // switch user
+      if (currentPlayer === "wht") {
+        currentPlayer = "red";
+      }
+      else {
+        currentPlayer = "wht";
+      }
+      // redisplay board
       $(document).trigger("boardChange");
     }
   }
