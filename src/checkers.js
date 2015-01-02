@@ -90,7 +90,40 @@ var selectSquare = function(row, col) {
           }
           break;
         case "red":
-
+          if (col > firstMove[1]) {
+            // valid capture
+            if (board[row + 1][col - 1] === "wht") {
+              $(document).trigger("capture", [row + 1, col - 1]);
+              $(document).trigger("validMove", [row, col]);
+            }
+            // invalid move, jumped own piece
+            else if (board[row + 1][col - 1] === "red") {
+              firstMove = [];
+              $(document).trigger("invalidMove", "You cannot jump your own piece.\nSelect a piece and try again.");
+            }
+            // invalid move, too many spaces
+            else {
+              firstMove = [];
+              $(document).trigger("invalidMove", "You cannot place your piece there.\nSelect a piece and try again.");
+            }
+          }
+          else if (col < firstMove[1]) {
+            // valid capture
+            if (board[row + 1][col + 1] === "wht") {
+              $(document).trigger("capture", [row + 1, col + 1]);
+              $(document).trigger("validMove", [row, col]);
+            }
+            // invalid move, jumped own piece
+            else if (board[row + 1][col + 1] === "red") {
+              firstMove = [];
+              $(document).trigger("invalidMove", "You cannot jump your own piece.\nSelect a piece and try again.");
+            }
+            // invalid move, too many spaces
+            else {
+              firstMove = [];
+              $(document).trigger("invalidMove", "You cannot place your piece there.\nSelect a piece and try again.");
+            } 
+          }
           break;
       }
     }
