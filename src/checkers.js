@@ -38,7 +38,7 @@ var selectSquare = function(row, col) {
     // assign distances moved X & Y coords
     var moveXDist = Math.abs(col - firstMove[1]);
     var moveYDist = Math.abs(row - firstMove[0]);
-    console.log("Move dists " + moveXDist + " " + moveYDist)
+    
     // select where to move the piece, this is the second move
     if (board[row][col] != " X " || col === firstMove[1] || moveXDist != moveYDist) {
       // invalid move, not empty square or not a diagonal move
