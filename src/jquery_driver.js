@@ -9,3 +9,22 @@ var charToNum = {
   g: 6,
   h: 7
 }
+
+var displayBoard = function() {
+  for (var i = 0; i < board.length; i++) {
+    for (var j = 0; j < board[i].length; j++) {
+      //console.log(board[i][j]);
+      switch (board[i][j]) {
+        case "empty":
+          console.log("empty");
+          break;
+        case "white":
+          console.log("white");
+          break;
+        case "red  ":
+          console.log("red");
+          break;
+      }
+    };
+  }
+}
