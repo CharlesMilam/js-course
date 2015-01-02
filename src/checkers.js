@@ -3,17 +3,17 @@ var firstMove = [];
 
 var resetBoard = function () {
   board = [
-    [' X ', 'wht', ' X ', 'wht', ' X ', 'wht', ' X ', 'wht'],
-    ['wht', ' X ', 'wht', ' X ', 'wht', ' X ', 'wht', ' X '],
-    [' X ', 'wht', ' X ', 'wht', ' X ', 'wht', ' X ', 'wht'],
-    [' X ', ' X ', ' X ', ' X ', ' X ', ' X ', ' X ', ' X '],
-    [' X ', ' X ', ' X ', ' X ', ' X ', ' X ', ' X ', ' X '],
-    ['red', ' X ', 'red', ' X ', 'red', ' X ', 'red', ' X '],
-    [' X ', 'red', ' X ', 'red', ' X ', 'red', ' X ', 'red'],
-    ['red', ' X ', 'red', ' X ', 'red', ' X ', 'red', ' X ']
+    ['empty', 'white', 'empty', 'white', 'empty', 'white', 'empty', 'white'],
+    ['white', 'empty', 'white', 'empty', 'white', 'empty', 'white', 'empty'],
+    ['empty', 'white', 'empty', 'white', 'empty', 'white', 'empty', 'white'],
+    ['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+    ['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+    ['red  ', 'empty', 'red  ', 'empty', 'red  ', 'empty', 'red  ', 'empty'],
+    ['empty', 'red  ', 'empty', 'red  ', 'empty', 'red  ', 'empty', 'red  '],
+    ['red  ', 'empty', 'red  ', 'empty', 'red  ', 'empty', 'red  ', 'empty']
   ];
 
-  currentPlayer = 'wht';
+  currentPlayer = 'white';
 
   $(document).trigger('boardChange');
 };
@@ -22,7 +22,7 @@ var selectSquare = function(row, col) {
   // select piece to move, this is the first move
   if (firstMove.length === 0) {
     // selected empty square
-    if (board[row][col] === ' X ') {
+    if (board[row][col] === 'empty') {
       $(document).trigger('invalidMove', "You selected an empty square.\nSelect one of your pieces.");
     }
     // selected opponent's piece
@@ -40,7 +40,7 @@ var selectSquare = function(row, col) {
     var moveYDist = Math.abs(row - firstMove[0]);
     
     // select where to move the piece, this is the second move
-    if (board[row][col] != " X " || col === firstMove[1] || moveXDist != moveYDist) {
+    if (board[row][col] != "empty" || col === firstMove[1] || moveXDist != moveYDist) {
       // invalid move, not empty square or not a diagonal move
       firstMove = [];
       $(document).trigger("invalidMove", "You cannot place your piece there.\nSelect a piece and try again.");
@@ -53,15 +53,15 @@ var selectSquare = function(row, col) {
     else if (moveXDist === 2 && moveYDist === 2) {
       // check for capture, else invalid move
       switch (currentPlayer) {
-        case "wht":
+        case "white":
           if (col > firstMove[1]) {
             // valid capture
-            if (board[row - 1][col - 1] === "red") {
+            if (board[row - 1][col - 1] === "red  ") {
               $(document).trigger("capture", [row - 1, col - 1]);
               $(document).trigger("validMove", [row, col]);
             }
             // invalid move, jumped own piece
-            else if (board[row - 1][col - 1] === "wht") {
+            else if (board[row - 1][col - 1] === "white") {
               firstMove = [];
               $(document).trigger("invalidMove", "You cannot jump your own piece.\nSelect a piece and try again.");
             }
@@ -73,12 +73,12 @@ var selectSquare = function(row, col) {
           }
           else if (col < firstMove[1]) {
             // valid capture
-            if (board[row - 1][col + 1] === "red") {
+            if (board[row - 1][col + 1] === "red  ") {
               $(document).trigger("capture", [row - 1, col + 1]);
               $(document).trigger("validMove", [row, col]);
             }
             // invalid move, jumped own piece
-            else if (board[row - 1][col + 1] === "wht") {
+            else if (board[row - 1][col + 1] === "white") {
               firstMove = [];
               $(document).trigger("invalidMove", "You cannot jump your own piece.\nSelect a piece and try again.");
             }
@@ -89,15 +89,15 @@ var selectSquare = function(row, col) {
             } 
           }
           break;
-        case "red":
+        case "red  ":
           if (col > firstMove[1]) {
             // valid capture
-            if (board[row + 1][col - 1] === "wht") {
+            if (board[row + 1][col - 1] === "white") {
               $(document).trigger("capture", [row + 1, col - 1]);
               $(document).trigger("validMove", [row, col]);
             }
             // invalid move, jumped own piece
-            else if (board[row + 1][col - 1] === "red") {
+            else if (board[row + 1][col - 1] === "red  ") {
               firstMove = [];
               $(document).trigger("invalidMove", "You cannot jump your own piece.\nSelect a piece and try again.");
             }
@@ -109,12 +109,12 @@ var selectSquare = function(row, col) {
           }
           else if (col < firstMove[1]) {
             // valid capture
-            if (board[row + 1][col + 1] === "wht") {
+            if (board[row + 1][col + 1] === "white") {
               $(document).trigger("capture", [row + 1, col + 1]);
               $(document).trigger("validMove", [row, col]);
             }
             // invalid move, jumped own piece
-            else if (board[row + 1][col + 1] === "red") {
+            else if (board[row + 1][col + 1] === "red  ") {
               firstMove = [];
               $(document).trigger("invalidMove", "You cannot jump your own piece.\nSelect a piece and try again.");
             }
@@ -141,14 +141,14 @@ var makeMove = function(row, col) {
 
 $(document).on("validMove", function(e, row, col) {
   board[row][col] = currentPlayer;
-  board[firstMove[0]][firstMove[1]] = " X ";
+  board[firstMove[0]][firstMove[1]] = "empty";
   firstMove = [];
   // switch user
-  if (currentPlayer === "wht") {
-    currentPlayer = "red";
+  if (currentPlayer === "white") {
+    currentPlayer = "red  ";
   }
   else {
-    currentPlayer = "wht";
+    currentPlayer = "white";
   }
   // redisplay board
   $(document).trigger("boardChange");  
@@ -159,7 +159,7 @@ $(document).on("invalidMove", function(e, error){
 });
 
 $(document).on("capture", function(e, row, col) {
-  board[row][col] = " X ";
+  board[row][col] = "empty";
   alert("Nyah, nyah, all your pieces are belong to us!");
 });
 
