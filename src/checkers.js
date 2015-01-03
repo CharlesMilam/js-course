@@ -21,11 +21,11 @@ var resetBoard = function () {
 var selectSquare = function(row, col) {
   // select piece to move, this is the first move
   if (firstMove.length === 0) {
-    // selected empty square
+    // invalid piece, selected empty square
     if (board[row][col] === 'empty') {
       $(document).trigger('invalidMove', "You selected an empty square.\nSelect one of your pieces.");
     }
-    // selected opponent's piece
+    // invalid piece, selected opponent's piece
     else if (board[row][col] != currentPlayer) {
       $(document).trigger("invalidMove", "You selected an opponent's piece.\nSelect one of your pieces.");
     }
@@ -54,6 +54,7 @@ var selectSquare = function(row, col) {
       // check for capture, else invalid move
       switch (currentPlayer) {
         case "white":
+          // diagonal move to the right
           if (col > firstMove[1]) {
             // valid capture
             if (board[row - 1][col - 1] === "red  ") {
@@ -71,6 +72,7 @@ var selectSquare = function(row, col) {
               $(document).trigger("invalidMove", "You cannot place your piece there.\nSelect a piece and try again.");
             }
           }
+          // diagonal move to the left
           else if (col < firstMove[1]) {
             // valid capture
             if (board[row - 1][col + 1] === "red  ") {
@@ -90,6 +92,7 @@ var selectSquare = function(row, col) {
           }
           break;
         case "red  ":
+          // diagonal move to the right
           if (col > firstMove[1]) {
             // valid capture
             if (board[row + 1][col - 1] === "white") {
@@ -107,6 +110,7 @@ var selectSquare = function(row, col) {
               $(document).trigger("invalidMove", "You cannot place your piece there.\nSelect a piece and try again.");
             }
           }
+          // diagonal move to the left
           else if (col < firstMove[1]) {
             // valid capture
             if (board[row + 1][col + 1] === "white") {
@@ -128,20 +132,24 @@ var selectSquare = function(row, col) {
       }
     }
     else {
-      // valid move
+      // valid move, no capture
       $(document).trigger("validMove", [row, col]);
     }
   }
 };
 
+// user friendly move function, uses letter column, number row
 var makeMove = function(row, col) {
   var numRow = charToNum[row];
   selectSquare(numRow, col);
 };
 
+// valid move event handler
 $(document).on("validMove", function(e, row, col) {
+  // mark board with new move, and clear previous square
   board[row][col] = currentPlayer;
   board[firstMove[0]][firstMove[1]] = "empty";
+  // reset the first move
   firstMove = [];
   // switch user
   if (currentPlayer === "white") {
@@ -154,23 +162,29 @@ $(document).on("validMove", function(e, row, col) {
   $(document).trigger("boardChange");  
 });
 
+// invalid move event handler
 $(document).on("invalidMove", function(e, error){
   alert(error);
 });
 
+// piece capture event handler, with taunt
 $(document).on("capture", function(e, row, col) {
   board[row][col] = "empty";
   alert("Nyah, nyah, all your pieces are belong to us!");
 });
 
+// board change event handler
 $(document).on("boardChange", function(){
+  // call to displayBoard of driver
   displayBoard();
 });
 
+// on click event handler for start button
 $(document).on("click", ".start", function() {
   resetBoard();
 });
 
+// on click handler for squares
 $(document).on("click", ".col", function() {
   row = charToNum[this.dataset.row];
   col = parseInt(this.dataset.col);
