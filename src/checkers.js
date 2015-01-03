@@ -174,7 +174,6 @@ $(document).on("click", ".start", function() {
 $(document).on("click", ".col", function() {
   row = charToNum[this.dataset.row];
   col = parseInt(this.dataset.col);
-  // console.log(row);
-  // console.log(col);
+  
   selectSquare(row, col);
 });
