@@ -166,3 +166,15 @@ $(document).on("capture", function(e, row, col) {
 $(document).on("boardChange", function(){
   displayBoard();
 });
+
+$(document).on("click", ".start", function() {
+  resetBoard();
+});
+
+$(document).on("click", ".col", function() {
+  row = charToNum[this.dataset.row];
+  col = parseInt(this.dataset.col);
+  // console.log(row);
+  // console.log(col);
+  selectSquare(row, col);
+});
