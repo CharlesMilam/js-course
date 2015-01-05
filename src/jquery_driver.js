@@ -24,14 +24,13 @@ var displayBoard = function() {
           square[0].classList.remove("red");
           square[0].classList.remove("piece");
           square[0].classList.add("empty");
+          if (square[0].dataset.color === "red") {
+            square[0].style.backgroundColor = "red"; 
+          }
+          else {
+            square[0].style.backgroundColor = "black"; 
+          }
           
-          // if (backColor === "red") {
-          //   backColor = "black";
-          // }
-          // else {
-          //   backColor = "red";
-          // }
-          // square[0].setAttribute("background-color", backColor);
           break;
         case "white":
           row = document.getElementsByClassName("row-" + numToChar[i]); 
@@ -42,13 +41,12 @@ var displayBoard = function() {
           square[0].classList.add("white");
           square[0].classList.add("piece");
           
-          // if (backColor === "red") {
-          //   backColor = "black";
-          // }
-          // else {
-          //   backColor = "red";
-          // }
-          // square[0].setAttribute("background-color", backColor);
+          if (square[0].dataset.color === "red") {
+            square[0].style.backgroundColor = "red"; 
+          }
+          else {
+            square[0].style.backgroundColor = "black"; 
+          }
           break;
         case "red  ":
           row = document.getElementsByClassName("row-" + numToChar[i]); 
@@ -59,13 +57,12 @@ var displayBoard = function() {
           square[0].classList.add("red");
           square[0].classList.add("piece");
           
-          // if (backColor === "red") {
-          //   backColor = "black";
-          // }
-          // else {
-          //   backColor = "red";
-          // }
-          // square[0].setAttribute("background-color", backColor);
+          if (square[0].dataset.color === "red") {
+            square[0].style.backgroundColor = "red"; 
+          }
+          else {
+            square[0].style.backgroundColor = "black"; 
+          }
           break;
       }
     };
