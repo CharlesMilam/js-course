@@ -11,7 +11,6 @@ var charToNum = {
 }
 
 var displayBoard = function() {
-  var backColor = "red";
   var row, square;
   for (var i = 0; i < board.length; i++) {
     for (var j = 0; j < board[i].length; j++) {
@@ -40,13 +39,8 @@ var displayBoard = function() {
           square[0].classList.remove("empty");
           square[0].classList.add("white");
           square[0].classList.add("piece");
+          square[0].style.backgroundColor = "white";
           
-          if (square[0].dataset.color === "red") {
-            square[0].style.backgroundColor = "red"; 
-          }
-          else {
-            square[0].style.backgroundColor = "black"; 
-          }
           break;
         case "red  ":
           row = document.getElementsByClassName("row-" + numToChar[i]); 
@@ -56,13 +50,8 @@ var displayBoard = function() {
           square[0].classList.remove("empty");
           square[0].classList.add("red");
           square[0].classList.add("piece");
+          square[0].style.backgroundColor = "red";
           
-          if (square[0].dataset.color === "red") {
-            square[0].style.backgroundColor = "red"; 
-          }
-          else {
-            square[0].style.backgroundColor = "black"; 
-          }
           break;
       }
     };
